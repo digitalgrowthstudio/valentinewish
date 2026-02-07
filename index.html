@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Valentine Gift</title>
+
+<style>
+body{
+margin:0;
+font-family:Georgia, serif;
+background: radial-gradient(circle,#ffb6d5,#ffe6f0);
+overflow:hidden;
+}
+
+/* HEART BACKGROUND */
+.hearts{
+position:fixed;
+inset:0;
+pointer-events:none;
+}
+.heart{
+position:absolute;
+font-size:18px;
+animation:float linear infinite;
+}
+@keyframes float{
+from{transform:translateY(100vh)}
+to{transform:translateY(-20vh)}
+}
+
+/* SCREENS */
+.screen{
+height:100vh;
+display:flex;
+align-items:center;
+justify-content:center;
+}
+
+/* CARD */
+.card{
+background:white;
+padding:40px;
+border-radius:22px;
+box-shadow:0 25px 50px rgba(255,120,160,.25);
+text-align:center;
+max-width:320px;
+}
+
+/* BUTTONS */
+button{
+padding:14px 22px;
+border:none;
+border-radius:14px;
+font-size:18px;
+margin:12px;
+cursor:pointer;
+color:white;
+font-weight:700;
+}
+
+.open{background:#ff7aa8;}
+.yes{background:#ff7aa8;}
+.no{background:#ff4d4d;}
+
+/* VIDEO SCREEN */
+.videoScreen{
+display:none;
+position:fixed;
+top:0;
+left:0;
+width:100vw;
+height:100vh;
+background:black;
+align-items:center;
+justify-content:center;
+z-index:9999;
+}
+
+video{
+width:100vw;
+height:100vh;
+object-fit:contain;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="hearts" id="hearts"></div>
+
+<!-- SCREEN 1 -->
+<div class="screen" id="giftScreen">
+  <div class="card">
+    <h2>🎁 Open Your Gift Card</h2>
+    <button class="open" onclick="openGift()">OPEN ❤️</button>
+  </div>
+</div>
+
+<!-- SCREEN 2 -->
+<div class="screen" id="questionScreen" style="display:none;">
+  <div class="card">
+    <h2>Will you be my Valentine? 💖</h2>
+
+    <button class="yes" onclick="playYes()">YES 😍</button>
+    <button class="no" onclick="playNo()">NO 😜</button>
+
+  </div>
+</div>
+
+<!-- VIDEO PLAYER -->
+<div class="videoScreen" id="videoScreen">
+  <video id="player" controls autoplay playsinline></video>
+</div>
+
+<script>
+
+/* FLOATING HEARTS */
+const hearts=document.getElementById("hearts");
+const icons=["❤️","💖","💗","💘"];
+for(let i=0;i<25;i++){
+let h=document.createElement("div");
+h.className="heart";
+h.innerText=icons[Math.floor(Math.random()*icons.length)];
+h.style.left=Math.random()*100+"vw";
+h.style.animationDuration=(4+Math.random()*4)+"s";
+hearts.appendChild(h);
+}
+
+/* OPEN CARD */
+function openGift(){
+document.getElementById("giftScreen").style.display="none";
+document.getElementById("questionScreen").style.display="flex";
+}
+
+/* PLAY VIDEO */
+function showVideo(src){
+document.getElementById("questionScreen").style.display="none";
+
+const screen=document.getElementById("videoScreen");
+const player=document.getElementById("player");
+
+screen.style.display="flex";
+player.src=src;
+player.load();
+player.play();
+}
+
+/* YES -> CB */
+function playYes(){
+showVideo("gemini_generated_video_136E69CB.mp4");
+}
+
+/* NO -> C7 */
+function playNo(){
+showVideo("gemini_generated_video_731D66C7.mp4");
+}
+
+</script>
+
+</body>
+</html>
